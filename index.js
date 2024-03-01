@@ -23,30 +23,11 @@ app.get('/test',(req,res)=>{
   console.log('test working')
   res.send('completed-test')
 })
-// const connect = async () => {
-//     try {
-//         const connection = await amqp.connect(process.env.RABBITMQ_URL);
-//         const channel = await connection.createChannel();
-//         const queueName = 'queue_A';
 
-//         await channel.assertQueue(queueName, { durable: false });
-
-//         console.log("Connected to RabbitMQ-B");
-//         channel.consume(queueName, (data) => {
-//             let message = data.content.toString();
-//             console.log("Received message from RabbitA:", message);
-            
-//             // Acknowledge the message
-//             channel.ack(data);
-//         });
-//     } catch (error) {
-//         console.error('Error connecting to RabbitMQ:', error);
-//     }
-// }
  async function connect () {
     try {
         console.log("Attempting to connect to RabbitMQ...");
-        const connection = await amqp.connect("amqps://hhhffwzt:18OB0sANoveOVY_QhztgUaXONis5qq_o@octopus.rmq3.cloudamqp.com/hhhffwzt");
+        const connection = await amqp.connect("amqps://hhhffwzt:18OB0sANoveOVY_QhztgUaXONis5qq_o@octopus-01.rmq3.cloudamqp.com/hhhffwzt");
         console.log("Connected to RabbitMQ successfully!");
 
         const channel = await connection.createChannel();
