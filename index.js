@@ -5,15 +5,27 @@ const amqp = require('amqplib');
 const rabbitmqUrl = process.env.RABBITMQ_URL;
 const cors = require('cors');
 
-// Set up CORS to allow requests from your frontend application
+
 app.use(cors({
     origin: "http://localhost:4200",
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"]
 }));
+
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({extended:true, limit:'50mb'}));
+
+app.get('/',(req,res)=>{
+  console.log('working')
+  res.send('I am working')
+})
+app.get('/test',(req,res)=>{
+  console.log('test working')
+  res.send('completed-test')
+})
 const connect = async () => {
     try {
-        const connection = await amqp.connect(rabbitmqUrl);
+        const connection = await amqp.connect(process.env.RABBITMQ_URL);
         const channel = await connection.createChannel();
         const queueName = 'queue_A';
 
