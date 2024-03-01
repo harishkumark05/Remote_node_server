@@ -69,6 +69,11 @@ const connect = async () => {
 
 connect();
 
+app.get('/connect',(req,res)=>{
+    console.log('trying to connect')
+    connect();
+    console.log('connected')
+})
 // Start the Express server
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
