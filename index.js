@@ -43,7 +43,7 @@ app.get('/test',(req,res)=>{
 //         console.error('Error connecting to RabbitMQ:', error);
 //     }
 // }
-const connect = async () => {
+ async function connect () {
     try {
         console.log("Attempting to connect to RabbitMQ...");
         const connection = await amqp.connect("amqps://hhhffwzt:18OB0sANoveOVY_QhztgUaXONis5qq_o@octopus.rmq3.cloudamqp.com/hhhffwzt");
@@ -69,11 +69,6 @@ const connect = async () => {
 
 connect();
 
-app.get('/connect',(req,res)=>{
-    console.log('trying to connect')
-    connect();
-    console.log('connected')
-})
 // Start the Express server
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
