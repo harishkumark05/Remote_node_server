@@ -46,7 +46,7 @@ app.get('/test',(req,res)=>{
 const connect = async () => {
     try {
         console.log("Attempting to connect to RabbitMQ...");
-        const connection = await amqp.connect(process.env.RABBITMQ_URL);
+        const connection = await amqp.connect("amqps://hhhffwzt:18OB0sANoveOVY_QhztgUaXONis5qq_o@octopus.rmq3.cloudamqp.com/hhhffwzt");
         console.log("Connected to RabbitMQ successfully!");
 
         const channel = await connection.createChannel();
