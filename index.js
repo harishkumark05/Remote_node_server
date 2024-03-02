@@ -54,14 +54,12 @@ async function connect() {
     }
 
 }
-function formAnArray(msg){
-if(dataArray > 10){
-    dataArray.pop()
-}else{
-    dataArray.unshift(msg)
+function formAnArray(msg) {
+    if (dataArray.length >= 10) {
+        dataArray.pop();
+    }
+    dataArray.unshift(msg);
 }
-}
-
 connect().catch(error => {
     console.log('Error occurred')
     console.error(error);
