@@ -13,7 +13,8 @@ const io = require('socket.io')(server, {
         allowedHeaders: ["content-type"]
     }
 });
-
+let message = '';
+let dataArray =[];
 
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({extended:true, limit:'50mb'}));
@@ -26,8 +27,11 @@ app.get('/test',(req,res)=>{
   console.log('test working')
   res.send('completed-test')
 })
-let message = '';
 
+app.get('/arduinoArr',(req,res) =>{
+    res.send(dataArray)
+    console.log(dataArray)
+})
 async function connect() {
     try {
         const connection = await amqp.connect(rabbitmqUrl);
@@ -42,12 +46,20 @@ async function connect() {
             console.log("Received message from RabbitA:", message);
             io.emit('broadcastEvent', message);
             // Acknowledge the message
+            formAnArray(JSON.parse(message))
             channel.ack(data);
         });
     } catch (error) {
         console.error('Error connecting to RabbitMQ:', error);
     }
 
+}
+function formAnArray(msg){
+if(dataArray > 10){
+    dataArray.pop()
+}else{
+    dataArray.unshift(msg)
+}
 }
 
 connect().catch(error => {
