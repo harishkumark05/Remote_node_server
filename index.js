@@ -16,6 +16,13 @@ const io = require('socket.io')(server, {
 let message = '';
 let dataArray =[];
 
+app.use(cors(
+{
+        origin: "http://localhost:4200",
+        methods: ["GET", "POST"],
+        allowedHeaders: ["content-type"]
+    }
+    ))
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({extended:true, limit:'50mb'}));
 
