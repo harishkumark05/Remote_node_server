@@ -62,10 +62,16 @@ async function connect() {
 
 }
 function formAnArray(msg) {
+    //get time stamp
+    const timestamp = new Date().toISOString();
+
+    //combine message with time stamp
+   const dataWithTimestamp = {time:timestamp,...msg}
+
     if (dataArray.length >= 10) {
         dataArray.pop();
     }
-    dataArray.unshift(msg);
+    dataArray.unshift(dataWithTimestamp);
 }
 connect().catch(error => {
     console.log('Error occurred')
