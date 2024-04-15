@@ -3,9 +3,11 @@ const express = require('express');
 const app = express();
 const amqp = require('amqplib');
 const rabbitmqUrl = process.env.RABBITMQ_URL;
+const SendKey= process.env.SENDGRID_API_KEY
 const cors = require('cors');
 const fs = require('fs');
 const jwt = require('jsonwebtoken')
+const sgMail= require('@sendgrid/mail')
 const http = require('http');
 const server = http.createServer(app);
 const io = require('socket.io')(server, {
@@ -33,6 +35,9 @@ app.use(cors(
     ))
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({extended:true, limit:'50mb'}));
+
+
+sgMail.setApiKey(SendKey);
 
 app.get('/',(req,res)=>{
   console.log('working')
@@ -160,6 +165,26 @@ io.on('connection', (socket) => {
         console.log('Client disconnected');
     });
 });
+
+// Endpoint to send email
+app.post('/send-email', (req, res) => {
+  const { name, email, subject, text } = req.body;
+
+  const msg = {
+    to: 'harishkumark05@gmail.com', // Client's email
+    from: email, // Your email
+    subject:subject,
+    text: `From: ${name} (${email})\n\n${text}` // Include sender's name and email in the message body
+  };
+
+  sgMail.send(msg)
+    .then(() => res.send({ success: true }))
+    .catch(error => {
+      console.error('Error sending email:', error);
+      res.status(500).send({ success: false, error: 'Failed to send email' });
+    });
+});
+
 // Start the Express server
 const PORT = process.env.PORT || 8080;
 server.listen(PORT, () => {
