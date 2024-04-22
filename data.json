@@ -1,26 +1,17 @@
 {
-  "name": "Your Name",
-  "bio": "A brief description about yourself",
-  "email": "your.email@example.com",
+  "name": "Harish Kumar K",
+  "email": "harishkumark05@gmail.com",
+  "mobile": 7402231685,
   "website": "https://www.yourwebsite.com",
-  "github": "https://github.com/yourusername",
-  "linkedin": "https://www.linkedin.com/in/yourprofile",
+  "github": "https://github.com/harishkumark05",
+  "linkedin": "https://www.linkedin.com/in/harishkumark",
+  "location": "Bangalore, IN",
+  "hometown": "Hosur",
   "projects": [
     {
       "title": "Project 1",
       "description": "A brief description of project 1",
       "link": "https://project1.example.com"
-    },
-    {
-      "title": "Project 2",
-      "description": "A brief description of project 2",
-      "link": "https://project2.example.com"
-    },
-    {
-      "title": "Project 3",
-      "description": "A brief description of project 3",
-      "link": "https://project3.example.com"
     }
-  ],
-  "skills": ["JavaScript", "HTML", "CSS", "React", "Node.js", "MongoDB"]
+  ]
 }

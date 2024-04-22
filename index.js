@@ -13,9 +13,17 @@ const server = http.createServer(app);
 const io = require('socket.io')(server, {
     cors: {
         origin: "http://localhost:4200",
-        methods: ["GET", "POST"],
-        allowedHeaders: ["content-type"]
+        methods: ["GET", "POST", 'PUT', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Authorization', 'Content-Type', 'Accept', 'Origin'],
+        credentials: true 
     }
+});
+// Allow preflight requests for CORS
+app.options('*', (req, res) => {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Authorization, Content-Type, Accept, Origin');
+  res.sendStatus(200); // Return 200 for successful preflight
 });
 let message = '';
 let dataArray =[];
@@ -28,9 +36,10 @@ const users = [
 
 app.use(cors(
 {
-        origin: "http://localhost:4200",
-        methods: ["GET", "POST"],
-        allowedHeaders: ["content-type"]
+       origin: "http://localhost:4200",
+        methods: ["GET", "POST", 'PUT', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Authorization', 'Content-Type', 'Accept', 'Origin'],
+        credentials: true 
     }
     ))
 app.use(express.json({limit: '50mb'}));
