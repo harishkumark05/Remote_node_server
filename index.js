@@ -12,7 +12,7 @@ const http = require('http');
 const server = http.createServer(app);
 const io = require('socket.io')(server, {
     cors: {
-        origin: "http://localhost:4200",
+        origin: process.env.CLIENT_URL1,
         methods: ["GET", "POST", 'PUT', 'DELETE', 'OPTIONS'],
         allowedHeaders: ['Authorization', 'Content-Type', 'Accept', 'Origin'],
         credentials: true 
@@ -20,7 +20,7 @@ const io = require('socket.io')(server, {
 });
 // Allow preflight requests for CORS
 app.options('*', (req, res) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
+  res.header('Access-Control-Allow-Origin', process.env.CLIENT_URL1);
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Authorization, Content-Type, Accept, Origin');
   res.sendStatus(200); // Return 200 for successful preflight
@@ -36,7 +36,7 @@ const users = [
 
 app.use(cors(
 {
-       origin: "http://localhost:4200",
+       origin: process.env.CLIENT_URL1,
         methods: ["GET", "POST", 'PUT', 'DELETE', 'OPTIONS'],
         allowedHeaders: ['Authorization', 'Content-Type', 'Accept', 'Origin'],
         credentials: true 
