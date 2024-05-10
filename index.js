@@ -12,7 +12,7 @@ const http = require('http');
 const server = http.createServer(app);
 const io = require('socket.io')(server, {
     cors: {
-        origin: process.env.CLIENT_URL1,
+        origin: [process.env.CLIENT_URL1, process.env.CLIENT_URL2],
         methods: ["GET", "POST", 'PUT', 'DELETE', 'OPTIONS'],
         allowedHeaders: ['Authorization', 'Content-Type', 'Accept', 'Origin'],
         credentials: true 
@@ -20,7 +20,7 @@ const io = require('socket.io')(server, {
 });
 // Allow preflight requests for CORS
 app.options('*', (req, res) => {
-  res.header('Access-Control-Allow-Origin', process.env.CLIENT_URL1);
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Authorization, Content-Type, Accept, Origin');
   res.sendStatus(200); // Return 200 for successful preflight
@@ -36,7 +36,7 @@ const users = [
 
 app.use(cors(
 {
-       origin: process.env.CLIENT_URL1,
+       origin: [process.env.CLIENT_URL1, process.env.CLIENT_URL2],
         methods: ["GET", "POST", 'PUT', 'DELETE', 'OPTIONS'],
         allowedHeaders: ['Authorization', 'Content-Type', 'Accept', 'Origin'],
         credentials: true 
@@ -173,7 +173,7 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('Client disconnected');
     });
-});
+}); 
 
 // Endpoint to send email
 app.post('/send-email', (req, res) => {
